@@ -1,0 +1,30 @@
+﻿@page "/"
+
+<h1>ToDo-lista</h1>
+
+<input @bind="newTask" placeholder="Skriv en uppgift..." />
+<button @onclick="AddTask">Lägg till</button>
+
+<ul>
+    @foreach (var task in tasks)
+    {
+        <li>
+            <input type="checkbox" @bind="task.IsDone" />
+            @task.Title
+        </li>
+    }
+</ul>
+
+@code {
+    private string newTask = "";
+    private List<TodoItem> tasks = new List<TodoItem>();
+
+    private void AddTask()
+    {
+        if (!string.IsNullOrWhiteSpace(newTask))
+        {
+            tasks.Add(new TodoItem { Title = newTask });
+            newTask = "";
+        }
+    }
+}

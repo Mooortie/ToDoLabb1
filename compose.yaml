@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  webapp:
+    image: mortblogg:latest
+    ports:
+      - "80:80"
+    depends_on:
+      - database
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=database;Port=5432;Database=mydb;Username=myuser;Password=mypassword
+    build: 
+      context: .
+      dockerfile: Dockerfile
+  database:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=MyTodo
+      - POSTGRES_USER=MattiasStrom
+      - POSTGRES_PASSWORD=PotatisBotatis
